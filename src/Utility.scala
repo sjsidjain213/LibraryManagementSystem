@@ -14,6 +14,7 @@ object Utility {
   // Context Bounding :
   var librarian: List[((String, String, Int))] = List()
   var books: List[((String, String, Int, Int))] = List()
+  var issueBooks:List[(Int,String,Int)]=List()
 
   def addLibrarian(a: Unit, name: String, b: Unit, password: String, id: Int): Unit = {
     if (!name.isEmpty && (!password.isEmpty)) librarian = librarian :+ ((name, password, id))
@@ -47,6 +48,16 @@ object Utility {
       case _: Exception => println("error")
     }
   }
+
+  def issueBook(id:Int): Unit ={
+    try {
+      var tupple = books.filter(x=> x._3==id)
+      issueBooks = issueBooks ::: List((tupple.head._3,tupple.head._1,tupple.head._4))
+    }
+  }
+
+  def removeBook(id:Int) = books = books.filterNot(x => x._3==id)
+
 
   var stringInput = (input: String) => if (input.isEmpty) false else true
 
